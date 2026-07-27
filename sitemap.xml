@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://junior-idol-culture.github.io/</loc>
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://junior-idol-culture.github.io/" />
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://junior-idol-culture.github.io/en/" />
+  </url>
+
+  <url>
+    <loc>https://junior-idol-culture.github.io/en/</loc>
+    <xhtml:link
+      rel="alternate"
+      hreflang="ja"
+      href="https://junior-idol-culture.github.io/" />
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://junior-idol-culture.github.io/en/" />
+  </url>
+
+</urlset>
