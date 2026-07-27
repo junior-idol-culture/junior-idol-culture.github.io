@@ -64,19 +64,40 @@
     .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
 
-  if ('IntersectionObserver' in window && sections.length) {
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-      if (!visible) return;
-      tocLinks.forEach((link) => {
-        const active = link.getAttribute('href') === `#${visible.target.id}`;
-        if (active) link.setAttribute('aria-current', 'true');
-        else link.removeAttribute('aria-current');
-      });
-    }, { rootMargin: '-18% 0px -70% 0px', threshold: [0, 1] });
+  const setActiveTocLink = (section) => {
+    tocLinks.forEach((link) => {
+      const active = section && link.getAttribute('href') === `#${section.id}`;
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
 
-    sections.forEach((section) => observer.observe(section));
+  if (sections.length) {
+    let tocFrame = null;
+    const updateActiveToc = () => {
+      tocFrame = null;
+      const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+      const marker = window.scrollY + headerHeight + 24;
+      let activeSection = null;
+
+      for (const section of sections) {
+        if (section.offsetTop <= marker) activeSection = section;
+        else break;
+      }
+
+      // Above the first article section (for example, while the mobile contents
+      // list is visible), no item should remain highlighted.
+      setActiveTocLink(activeSection);
+    };
+
+    const requestTocUpdate = () => {
+      if (tocFrame !== null) return;
+      tocFrame = window.requestAnimationFrame(updateActiveToc);
+    };
+
+    updateActiveToc();
+    window.addEventListener('scroll', requestTocUpdate, { passive: true });
+    window.addEventListener('resize', requestTocUpdate);
+    window.addEventListener('hashchange', requestTocUpdate);
   }
 })();

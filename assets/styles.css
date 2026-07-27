@@ -34,6 +34,9 @@ html[data-theme="dark"] {
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* Keep in-page headings, citations, and reference notes clear of the sticky header. */
+[id] { scroll-margin-top: 5.25rem; }
 body {
   margin: 0;
   background: var(--bg);
@@ -212,7 +215,7 @@ h1 {
   text-decoration: none;
 }
 .toc a:hover,
-.toc a[aria-current="true"] {
+.toc a[aria-current] {
   color: var(--accent-strong);
   background: var(--accent-soft);
   border-left-color: var(--accent);
@@ -354,6 +357,11 @@ article em { font-style: italic; }
   article { padding: 1.25rem 1rem 2.2rem; }
   .project-summary { padding: 1.1rem 1rem; }
   .header-button, .lang-link { padding: 0.43rem 0.65rem; }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 @media print {
